@@ -1,16 +1,22 @@
 workflows:
   ios-workflow:
-    name: iOS Workflow
+    name: iOS Simple Workflow
     environment:
       flutter: stable
       xcode: latest
-      cocoapods: default
+    remote_access: false
+    cache:
+      enabled: false  # Önbelleği geçici olarak devre dışı bırakın
     scripts:
-      - name: Get Flutter packages
+      - name: Flutter setup
         script: |
           flutter packages pub get
-      - name: Flutter build iOS
+      - name: iOS build
         script: |
           flutter build ios --release --no-codesign
     artifacts:
-      - build/ios/ipa/*.ipa
+      - build/ios/iphoneos/*.app
+    publishing:
+      email:
+        recipients:
+          - your.email@example.com
